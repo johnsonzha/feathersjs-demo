@@ -8,7 +8,7 @@ const logger = require('./logger');
 const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
-const socketio = require('@feathersjs/socketio');
+// const socketio = require('@feathersjs/socketio');
 
 
 const middleware = require('./middleware');
@@ -36,7 +36,7 @@ app.use('/', express.static(app.get('public')));
 
 // Set up Plugins and providers
 app.configure(express.rest());
-app.configure(socketio());
+// app.configure(socketio());
 
 app.configure(sequelize);
 

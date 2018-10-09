@@ -45,7 +45,14 @@ module.exports = function (app) {
     operatorsAliases,
     define: {
       freezeTableName: true
-    }
+    },
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    },
+    timezone: '+08:00'
   });
   const oldSetup = app.setup;
 
