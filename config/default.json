@@ -3,11 +3,11 @@
   "port": 3030,
   "public": "../public/",
   "paginate": {
-    "default": 10,
-    "max": 50
+    "default": 20,
+    "max": 100
   },
   "authentication": {
-    "secret": "5a450f40cae9bc82b43df3abbbbf87829b5c2dcde083223fffc9468b000c23ffa490859860268362871fb9c05774492450aff0d32385ab429186595010349ce5dd61393f0ceb5a4bea67a951d444a8c3016b3bfc44c8f8ec65d3b69d0d1543197e7a19e77aade55518a92e73608f4dffbda10b9559a56abcaf99bb7a06ac89e3282e3b5a17549c0c9f2790d14f6faf7e92b26bf837bc8b4b37f9b5ae2050e8d0dd66f5ed097dd8a055290faa700ed38f800c573073309532009c6eb7a12aa154399d55c3ccf176b8d3500346a42e94d7ab86fbbec3311b9d90320a52498fc5c29bcf0751f41eeac5677f4d8be908faef48c649419304990541754f76b4c7d4d4",
+    "secret": "yoursecret",
     "strategies": [
       "jwt",
       "local"
@@ -22,13 +22,18 @@
       "subject": "anonymous",
       "issuer": "feathers",
       "algorithm": "HS256",
-      "expiresIn": "1d"
+      "expiresIn": "7d"
     },
     "local": {
       "entity": "user",
       "usernameField": "email",
       "passwordField": "password"
+    },
+    "cookie": {
+      "name": "token"
     }
   },
-  "mysql": "mysql://root:Aikucun123456@localhost:3306/wms"
+  "fileSize": 20000000,
+  "uploadDir": "uploads",
+  "mysql": "mysql://root:@localhost:3306/wms"
 }

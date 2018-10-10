@@ -6,10 +6,66 @@ const DataTypes = Sequelize.DataTypes;
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
   const goods = sequelizeClient.define('goods', {
-    text: {
+    brand: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: true
+    },
+    barcode: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    goodnum: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    styleno: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    color: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    size: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    // 系列
+    series: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    year: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    price: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    season: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    // 仓库名
+    warehouse: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    // 次品
+    badnum: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    // 入库时间
+    intime: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
   }, {
     hooks: {
       beforeCount(options) {
