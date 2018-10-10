@@ -38,13 +38,18 @@
     "@feathersjs/feathers": "^3.2.3",
     "@feathersjs/socketio": "^3.2.6",
     "compression": "^1.7.3",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
+    "feathers-logger": "^0.3.2",
     "feathers-sequelize": "^3.1.2",
     "helmet": "^3.13.0",
+    "lodash": "^4.17.11",
+    "multer": "^1.4.0",
     "mysql2": "^1.6.1",
     "sequelize": "^4.38.0",
     "serve-favicon": "^2.5.0",
-    "winston": "^3.0.0"
+    "winston": "^3.1.0",
+    "xlsx": "^0.14.0"
   },
   "devDependencies": {
     "eslint": "^5.6.1",

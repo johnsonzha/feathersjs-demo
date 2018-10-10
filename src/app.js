@@ -2,6 +2,7 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const compress = require('compression');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const logger = require('./logger');
 
@@ -9,7 +10,6 @@ const feathers = require('@feathersjs/feathers');
 const configuration = require('@feathersjs/configuration');
 const express = require('@feathersjs/express');
 // const socketio = require('@feathersjs/socketio');
-
 
 const middleware = require('./middleware');
 const services = require('./services');
@@ -28,9 +28,11 @@ app.configure(configuration());
 app.use(helmet());
 app.use(cors());
 app.use(compress());
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(favicon(path.join(app.get('public'), 'favicon.ico')));
+app.set('logger', logger);
 // Host the public folder
 app.use('/', express.static(app.get('public')));
 
