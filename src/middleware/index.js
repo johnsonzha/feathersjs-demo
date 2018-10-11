@@ -46,7 +46,7 @@ module.exports = function (app) {
           return p.then(function () {
             return app.service('goods').Model.bulkCreate(curr);
           });
-        }, app.service('goods').Model.truncate());
+        }, Promise.resolve());
       await app.service('uploadlog').Model.update({ status: true }, { where: { id: log.id } });
       models = null;
       workbook = null;
