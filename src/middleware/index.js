@@ -26,7 +26,7 @@ module.exports = function (app) {
         models[index - 1][fields[k.charCodeAt(0) - 65]] = v || '';
       }
       // 过滤掉最后统计行
-      if (!models[0].barcode || !models[0].brand) {
+      if (!models[models.length - 1].barcode || !models[models.length - 1].brand) {
         models.pop();
       }
       // 过滤掉标题行
