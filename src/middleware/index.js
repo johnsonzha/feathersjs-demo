@@ -7,15 +7,30 @@ const _ = require('lodash');
 module.exports = function (app) {
 
   const upload = multer({ dest: app.get('uploadDir'), limits: { fileSize: app.get('fileSize') } });
-
+  var uploading = false;
   // 上传excel
   app.post('/uploadgoods', authenticate('jwt'), upload.single('file'), async (req, res) => {
+    if (uploading) {
+      return res.status(429).json({ error: 1 });
+    }
+    uploading = true;
     try {
       var workbook = XLSX.readFile(req.file.path, { raw: true, cellHTML: false });
       const fields = 'brand,barcode,goodnum,styleno,name,color,size,series,year,price,season,warehouse,badnum,intime'.split(',');
+      const fieldnames = '品牌,商品条码,良品,款号,品名,颜色,尺寸/尺码,系列,年份,零售价,季节,仓库地点,次品,首次入库时间'.split(',');
       var models = [];
       var store = workbook.Sheets[workbook.SheetNames[0]];
       var keys = Object.keys(store);
+      // check the format
+      var valid = true;
+      for (let i = 0; i < fields.length; i++) {
+        if (store[String.fromCharCode(65 + i) + '1'].w !== fieldnames[i]) {
+          valid = false;
+        }
+      }
+      if (!valid) {
+        return res.json({ error: 1, msg: '文件格式错误' });
+      }
       for (let k of keys) {
         let index = parseInt(k.substring(1));
         if (!models[index - 1]) {
@@ -53,6 +68,8 @@ module.exports = function (app) {
     } catch (e) {
       // console.log(e);
       res.status(500).json({ error: 1 });
+    } finally {
+      uploading = false;
     }
     res.json({ error: 0 });
   });

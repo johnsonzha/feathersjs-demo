@@ -32,7 +32,6 @@
     "cookie": {
       "name": "token",
       "enabled": true,
-      "domain": "localhost",
       "httpOnly": true,
       "secure": true
     }
