@@ -30,7 +30,11 @@
       "passwordField": "password"
     },
     "cookie": {
-      "name": "token"
+      "name": "token",
+      "enabled": true,
+      "domain": "localhost",
+      "httpOnly": true,
+      "secure": false
     }
   },
   "fileSize": 20000000,
