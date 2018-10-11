@@ -32,9 +32,8 @@
     "cookie": {
       "name": "token",
       "enabled": true,
-      "domain": "localhost",
       "httpOnly": true,
-      "secure": false
+      "secure": true
     }
   },
   "fileSize": 20000000,
