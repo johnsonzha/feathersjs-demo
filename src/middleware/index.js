@@ -14,7 +14,7 @@ module.exports = function (app) {
       var workbook = XLSX.readFile(req.file.path, { raw: true, cellHTML: false });
       const fields = 'brand,barcode,goodnum,styleno,name,color,size,series,year,price,season,warehouse,badnum,intime'.split(',');
       var models = [];
-      var store = workbook.Sheets['明细'];
+      var store = workbook.Sheets[workbook.SheetNames[0]];
       var keys = Object.keys(store);
       for (let k of keys) {
         let index = parseInt(k.substring(1));
