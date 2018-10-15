@@ -66,7 +66,7 @@ module.exports = function (app) {
       models = null;
       workbook = null;
     } catch (e) {
-      // console.log(e);
+      console.log(e);
       res.status(500).json({ error: 1 });
     } finally {
       uploading = false;
