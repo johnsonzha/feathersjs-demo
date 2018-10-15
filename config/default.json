@@ -38,5 +38,5 @@
   },
   "fileSize": 20000000,
   "uploadDir": "uploads",
-  "mysql": "mysql://root:ghostcode@localhost:3306/wms"
+  "mysql": "mysql://root:Aikucun@123456@localhost:3306/wms"
 }
