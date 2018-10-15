@@ -120,4 +120,52 @@ module.exports = function (app) {
       res.status(404).json({ error: 1 });
     }
   });
+
+  app.get('/exportgoods', async (req, res) => {
+    const fields = 'brand,barcode,goodnum,styleno,name,color,size,series,year,price,season,warehouse,badnum,intime'.split(',');
+    const fieldnames = '品牌,商品条码,良品,款号,品名,颜色,尺寸/尺码,系列,年份,零售价,季节,仓库地点,次品,首次入库时间'.split(',');
+    var attrs = [];
+    fields.forEach((it, i) => {
+      attrs.push([it, fieldnames[i]]);
+    });
+    const { brand, barcode, season, warehouse, styleno, name } = req.query;
+    let query = {};
+    if (brand) {
+      query.brand = { $like: `%${brand}%` };
+    }
+    if (season) {
+      query.season = { $like: `%${season}%` };
+    }
+    if (warehouse) {
+      query.warehouse = warehouse;
+    }
+    if (barcode) {
+      query.barcode = barcode;
+    }
+    if (styleno) {
+      query.styleno = { $like: `%${styleno}%` };
+    }
+    if (name) {
+      query.name = { $like: `%${name}%` };
+    }
+    let goods = await app.service('goods').Model.findAll({
+      where: query,
+      attributes: attrs,
+      raw: true
+    });
+    // goods = goods.data || [];
+    var ws = XLSX.utils.json_to_sheet(goods);
+    var wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, '商品');
+    // XLSX.writeFile(wb, 'xx.xlsx');
+    let buffer = XLSX.write(wb, { bookType: 'xlsx', type: 'buffer' });
+    res.setHeader('Content-disposition', 'attachment; filename=' + 'export_goods.xlsx');
+    res.setHeader('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    try {
+      res.send(new Buffer(buffer));
+    } catch (e) {
+      console.log(e);
+      res.json({ error: 1 });
+    }
+  });
 };
