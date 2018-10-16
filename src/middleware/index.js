@@ -121,9 +121,10 @@ module.exports = function (app) {
     }
   });
 
-  app.get('/exportgoods', async (req, res) => {
+  app.get('/exportgoods', authenticate('jwt', { jwtFromRequest: [ExtractJwt.fromUrlQueryParameter('token')] }), async (req, res) => {
     const fields = 'brand,barcode,goodnum,styleno,name,color,size,series,year,price,season,warehouse,badnum,intime'.split(',');
     const fieldnames = '品牌,商品条码,良品,款号,品名,颜色,尺寸/尺码,系列,年份,零售价,季节,仓库地点,次品,首次入库时间'.split(',');
+    let { email } = req.user;
     var attrs = [];
     fields.forEach((it, i) => {
       attrs.push([it, fieldnames[i]]);
@@ -163,8 +164,9 @@ module.exports = function (app) {
     res.setHeader('Content-type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     try {
       res.send(new Buffer(buffer));
+      app.get('logger').log('info', '[%s] download file %s', email, JSON.stringify(query));
     } catch (e) {
-      console.log(e);
+      app.get('logger').log('error', e);
       res.json({ error: 1 });
     }
   });
